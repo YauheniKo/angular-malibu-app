@@ -1,0 +1,98 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentArticle.id">
+    <h4>Article</h4>
+    <div>
+      <label><strong>Title:</strong></label>
+      {{ currentArticle.title }}
+    </div>
+    <div>
+      <label><strong>Description:</strong></label>
+      {{ currentArticle.description }}
+    </div>
+    <div>
+      <label><strong>Tag:</strong></label>
+      <li *ngFor="let tag of currentArticle.tag">
+        {{ tag.name }}
+      </li>
+    </div>
+    <div>
+      <label><strong>Text:</strong></label>
+      {{ currentArticle.text}}
+    </div>
+
+    <a
+      class="badge badge-warning"
+      routerLink="/articles/{{ currentArticle.id }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentArticle">
+    <br/>
+    <p>Please click on a Article...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentArticle.id" class="edit-form">
+    <h4>Tutorial</h4>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentArticle.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentArticle.description"
+          name="description"
+        />
+      </div>
+      <div class="form-group">
+        <label>Tags</label>
+        <ul>
+        <li *ngFor="let tag of currentArticle.tag">
+          {{ tag.name }}
+        </li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <label for="text">Text</label>
+        <input
+          type="text"
+          class="form-control"
+          id="text"
+          [(ngModel)]="currentArticle.text"
+          name="text"
+        />
+      </div>
+    </form>
+    <button class="badge badge-danger mr-2" (click)="deleteArticle()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateArticle()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentArticle.id">
+    <br/>
+    <p>Cannot access this Article...</p>
+  </div>
+</ng-template>

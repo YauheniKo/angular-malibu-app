@@ -1,0 +1,58 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          required
+          [(ngModel)]="articleRequest.title"
+          name="title"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          class="form-control"
+          id="description"
+          required
+          [(ngModel)]="articleRequest.description"
+          name="description"
+        />
+      </div>
+      <div class="form-group">
+        <label for="tagName">Tag</label>
+        <input
+          class="form-control"
+          type="text"
+          id="tagName"
+          required
+          [(ngModel)]="articleRequest.tagName"
+          name="tag"
+        />
+      </div>
+      <div class="form-group">
+        <label for="text">Text</label>
+        <input
+          class="form-control"
+          type="text"
+          id="text"
+          required
+          [(ngModel)]="articleRequest.text"
+          name="text"
+        />
+      </div>
+
+
+      <button (click)="saveArticle()" class="btn btn-success">Submit</button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>Article was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newArticle()">Add</button>
+    </div>
+  </div>
+</div>
