@@ -1,6 +1,6 @@
 
 export class ArticleRequest {
-  userId?: any;
+  userId?: string;
   title?: string;
   description?: string;
   text?: string;

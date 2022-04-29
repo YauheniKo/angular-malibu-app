@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Article } from 'src/app/models/article.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {Article} from 'src/app/models/article.model';
 import {Tag} from "../../models/tag.model";
 import {ArticleService} from "../../_services/article.service";
 import {ArticleRequest} from "../../models/artcile.request.model";
+import {TokenStorageService} from "../../_services/token-storage.service";
 
 @Component({
   selector: 'app-add-article',
@@ -10,27 +11,35 @@ import {ArticleRequest} from "../../models/artcile.request.model";
   styleUrls: ['./add-article.component.css']
 })
 export class AddArticleComponent implements OnInit {
-  id?: any;
+  userId:any;
+
+  @Input()currentUserFromArticle: any;
 
   articleRequest: ArticleRequest = {
+    userId: '',
     title: '',
     description: '',
     text: '',
-    tagName:''
+    tagName: ''
   };
   submitted = false;
 
-  constructor(private articleService: ArticleService) { }
+  constructor(private articleService: ArticleService,
+              private token: TokenStorageService) {
+    this.userId  =this.token.getUser().id;
+  }
 
   ngOnInit(): void {
   }
+
 
   saveArticle(): void {
     const data = {
       title: this.articleRequest.title,
       description: this.articleRequest.description,
       text: this.articleRequest.text,
-      tagName: this.articleRequest.tagName
+      tagName: this.articleRequest.tagName,
+      userId:this.userId
     };
 
     this.articleService.create(data)
@@ -50,6 +59,7 @@ export class AddArticleComponent implements OnInit {
       description: '',
       text: '',
       tagName: ''
+
     };
   }
 }

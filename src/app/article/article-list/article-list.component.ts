@@ -8,7 +8,6 @@ import {ArticleService} from "../../_services/article.service";
   styleUrls: ['./article-list.component.css']
 })
 export class ArticleListComponent implements OnInit {
-
   articles?: Article[];
   currentArticle: Article = {};
   currentIndex = -1;
