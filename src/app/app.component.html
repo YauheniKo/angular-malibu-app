@@ -11,7 +11,7 @@
       </li>
 
       <li class="nav-item">
-        <a href="/add" class="nav-link" routerLink="add">Add Article </a>
+        <a href="/addArticle" class="nav-link" *ngIf="isLoggedIn" routerLink="addArticle">Add Article </a>
       </li>
 
 
@@ -22,7 +22,7 @@
         <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
       </li>
       <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+        <a href="/users" class="nav-link" *ngIf="showAdminBoard" routerLink="users">UserList</a>
       </li>
     </ul>
 

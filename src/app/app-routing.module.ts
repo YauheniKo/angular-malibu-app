@@ -11,6 +11,8 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import {ArticleListComponent} from "./article/article-list/article-list.component";
 import {ArticleDetailsComponent} from "./article/article-details/article-details.component";
 import {AddArticleComponent} from "./article/add-article/add-article.component";
+import {UserListComponent} from "./user/user-list/user-list.component";
+import {UserDetailsComponent} from "./user/user-details/user-details.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'articles', component: ArticleListComponent },
   { path: 'articles/:id', component: ArticleDetailsComponent },
-  { path: 'add', component: AddArticleComponent }
+  { path: 'addArticle', component: AddArticleComponent },
+  { path: 'users', component: UserListComponent},
+  { path: 'users/:id', component: UserDetailsComponent }
 ];
 
 @NgModule({

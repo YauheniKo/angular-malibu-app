@@ -17,6 +17,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {ArticleListComponent} from "./article/article-list/article-list.component";
 import {ArticleDetailsComponent} from "./article/article-details/article-details.component";
 import {AddArticleComponent} from "./article/add-article/add-article.component";
+import {UserListComponent} from "./user/user-list/user-list.component";
+import {UserDetailsComponent} from "./user/user-details/user-details.component";
 
 @NgModule({
   declarations: [
@@ -31,7 +33,11 @@ import {AddArticleComponent} from "./article/add-article/add-article.component";
 //Article components
     ArticleListComponent,
     ArticleDetailsComponent,
-    AddArticleComponent
+    AddArticleComponent,
+
+    //User components
+    UserListComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
