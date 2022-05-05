@@ -21,33 +21,28 @@
   <div class="col-md-6">
     <h4>Articles List</h4>
     <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let article of articles; let i = index"
-        [class.active]="i == currentIndex"
 
+
+      <li class="list-group-item"
+          *ngFor="let article of articles; let i = index"
+          [class.active]="i == currentIndex"
       >
-        {{ article.title }}
-        <div class="wrapper">
-        <div class="item1">
-
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="setActiveArticle(article, i)"
-        >
-          info
+        <button class="btn btn-primary" (click)="setActiveArticle(article, i)" type="button">
+          Info
         </button>
+        <div class="col-md-9">
+          {{ article.title }}
         </div>
-        <div class="item2">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchTitle()"
-        >
-          like
-        </button>
-          </div>
+
+
+        <div class="buttons">
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="searchTitle()"
+          >
+            like
+          </button>
         </div>
       </li>
 

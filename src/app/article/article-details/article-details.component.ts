@@ -17,7 +17,8 @@ export class ArticleDetailsComponent implements OnInit {
     title: '',
     description: '',
     text: '',
-    tag: []
+    tag: [],
+    username:''
   };
 
   message = '';

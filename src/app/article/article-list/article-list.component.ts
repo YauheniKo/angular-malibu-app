@@ -12,6 +12,7 @@ export class ArticleListComponent implements OnInit {
   currentArticle: Article = {};
   currentIndex = -1;
   title = '';
+  published='';
 
   constructor(private articleService:  ArticleService) { }
 
