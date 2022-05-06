@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/app/models/article.model';
 import {ArticleService} from "../../_services/article.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-article-list',
@@ -14,7 +15,8 @@ export class ArticleListComponent implements OnInit {
   title = '';
   published='';
 
-  constructor(private articleService:  ArticleService) { }
+  constructor(private articleService:  ArticleService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.retrieveArticle();
@@ -37,9 +39,12 @@ export class ArticleListComponent implements OnInit {
     this.currentIndex = -1;
   }
 
-  setActiveArticle(article: Article, index: number): void {
+  getTextInfo(article: Article, index: number): void {
     this.currentArticle = article;
     this.currentIndex = index;
+
+    // this.router.navigate(['/articles/'+this.currentArticle.id]);
+    this.router.navigate(['/articles/text/'+this.currentArticle.id]);
   }
 
   searchTitle(): void {
@@ -55,5 +60,4 @@ export class ArticleListComponent implements OnInit {
         error: (e) => console.error(e)
       });
   }
-
 }

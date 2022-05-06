@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Article} from 'src/app/models/article.model';
-import {Tag} from "../../models/tag.model";
 import {ArticleService} from "../../_services/article.service";
+import {TokenStorageService} from "../../_services/token-storage.service";
 
 @Component({
   selector: 'app-article-details',
@@ -10,6 +10,9 @@ import {ArticleService} from "../../_services/article.service";
   styleUrls: ['./article-details.component.css']
 })
 export class ArticleDetailsComponent implements OnInit {
+  private roles?: string[];
+  isAdmin = false;
+  isModerator = false;
 
   @Input() viewMode = false;
 
@@ -26,13 +29,20 @@ export class ArticleDetailsComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
     if (!this.viewMode) {
       this.message = '';
       this.getArticle(this.route.snapshot.params["id"]);
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+      // @ts-ignore
+      this.isAdmin = this.roles.includes('ROLE_ADMIN');
+      // @ts-ignore
+      this.isModerator = this.roles.includes('ROLE_MODERATOR');
     }
   }
 

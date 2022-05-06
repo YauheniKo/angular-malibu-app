@@ -22,7 +22,9 @@ export class AppComponent implements OnInit {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
 
+      // @ts-ignore
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      // @ts-ignore
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       this.username = user.displayName;
