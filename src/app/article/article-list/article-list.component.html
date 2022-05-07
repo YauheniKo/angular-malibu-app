@@ -24,6 +24,7 @@
       <li class="list-group-item"
           *ngFor="let article of articles; let i = index"
           [class.active]="i == currentIndex"
+
       >
         <div>
           <div class="m-2">
@@ -37,9 +38,28 @@
           <div class="card-footer text-muted">
             {{ article.username }}
           </div>
+
           <button class="btn btn-primary" (click)="getTextInfo(article, i)" type="button">
             Info
           </button>
+        </div>
+
+        <div class="wrapper">
+          <div class="item1">
+            <button class="btn" (click)="gradeLike(article.id)">
+              LIKE
+            </button>
+          </div>
+          <div class="item3">
+            <div *ngIf="article.meLiked; else templateName">
+              <i class="fa-solid fa-heart"></i>
+              {{ article.likes }}
+            </div>
+            <ng-template #templateName>
+              <i class="fa-regular fa-heart"></i>
+              {{ article.likes }}
+            </ng-template>
+          </div>
         </div>
 
       </li>

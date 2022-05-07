@@ -6,12 +6,10 @@
     </a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item"><a href="/home" class="nav-link" routerLink="home">Home </a></li>
-      <li class="navbar-nav ml-auto">
-        <a href="/articles" class="nav-link" routerLink="articles">Articles </a>
-      </li>
-      <li class="navbar-nav ml-auto">
-        <a href="/addArticle" class="nav-link" routerLink="addArticle">Add Article </a>
-      </li>
+      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="navbar-nav ml-auto"><a href="/articles" class="nav-link" routerLink="articles">Articles </a></li>
+      <li class="navbar-nav ml-auto"><a href="/addArticle" class="nav-link" routerLink="addArticle">Add Article </a></li>
+      </ul>
       <li class="nav-item" *ngIf="showAdminBoard"><a href="/admin" class="nav-link" routerLink="admin">Admin Board</a></li>
       <li class="nav-item" *ngIf="showModeratorBoard"><a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a></li>
       <li class="nav-item"><a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a></li>

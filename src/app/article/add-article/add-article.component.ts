@@ -39,7 +39,7 @@ export class AddArticleComponent implements OnInit {
       description: this.articleRequest.description,
       text: this.articleRequest.text,
       tagName: this.articleRequest.tagName,
-      userId:this.userId
+      userId: this.userId
     };
 
     this.articleService.create(data)
