@@ -33,11 +33,11 @@ export class ArticleService {
     return this.http.delete(`${baseUrl}/${id}`);
   }
 
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
-  }
-
   findByTitle(title: any): Observable<Article[]> {
     return this.http.get<Article[]>(`${baseUrl}?title=${title}`);
+  }
+
+  gradeLike(id: any): Observable<any> {
+    return this.http.get(`${baseUrl}/like/${id}`);
   }
 }

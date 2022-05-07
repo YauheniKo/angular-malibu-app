@@ -8,5 +8,7 @@ export class Article {
   description?: string;
   text?: string;
   tag?: Tag[];
+  likes?:any;
+  meLiked?:boolean;
   published?: boolean;
 }
