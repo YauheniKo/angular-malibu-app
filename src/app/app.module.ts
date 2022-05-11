@@ -20,6 +20,7 @@ import {AddArticleComponent} from "./article/add-article/add-article.component";
 import {UserListComponent} from "./user/user-list/user-list.component";
 import {UserDetailsComponent} from "./user/user-details/user-details.component";
 import { ArticleTextComponent } from './article/article-text/article-text.component';
+import {FileUploadComponent} from "./file-upload/file-upload.component";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ArticleTextComponent } from './article/article-text/article-text.compon
     //User components
     UserListComponent,
     UserDetailsComponent,
-    ArticleTextComponent
+    ArticleTextComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
