@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Article} from 'src/app/models/article.model';
+import { Component, OnInit } from '@angular/core';
+import { Article } from 'src/app/models/article.model';
 import {ArticleService} from "../../_services/article.service";
 import {Router} from "@angular/router";
 
@@ -13,11 +13,10 @@ export class ArticleListComponent implements OnInit {
   currentArticle: Article = {};
   currentIndex = -1;
   title = '';
-  published = '';
+  published='';
 
-  constructor(private articleService: ArticleService,
-              private router: Router) {
-  }
+  constructor(private articleService:  ArticleService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.retrieveArticle();
