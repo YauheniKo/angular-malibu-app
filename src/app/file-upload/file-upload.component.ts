@@ -16,11 +16,12 @@ export class FileUploadComponent implements OnInit {
   previews: string[] = [];
   imageInfos?: Observable<any>;
   constructor(private uploadService: FileUploadService) { }
+
   selectFiles(event: any): void {
     this.message = [];
     this.progressInfos = [];
     this.selectedFileNames = [];
-    this.selectedFiles = event.target.files[0];
+    this.selectedFiles = event.target.files;
     this.previews = [];
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
@@ -52,7 +53,7 @@ export class FileUploadComponent implements OnInit {
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
-            const msg = 'Uploaded the files successfully: ' + file.name;
+            const msg = 'Uploaded the file successfully: ' + file.name;
             this.message.push(msg);
             this.imageInfos = this.uploadService.getFiles();
           }
@@ -67,5 +68,4 @@ export class FileUploadComponent implements OnInit {
   ngOnInit(): void {
     this.imageInfos = this.uploadService.getFiles();
   }
-
 }
