@@ -21,7 +21,25 @@ import {UserListComponent} from "./user/user-list/user-list.component";
 import {UserDetailsComponent} from "./user/user-details/user-details.component";
 import { ArticleTextComponent } from './article/article-text/article-text.component';
 import {FileUploadComponent} from "./file-upload/file-upload.component";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule} from "@angular/material/card";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatListModule} from "@angular/material/list";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {MatLineModule} from "@angular/material/core";
 
+const materialModules = [
+  MatCardModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatProgressBarModule,
+  MatListModule
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +65,15 @@ import {FileUploadComponent} from "./file-upload/file-upload.component";
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NoopAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatLineModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatListModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

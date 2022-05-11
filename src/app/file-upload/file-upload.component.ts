@@ -10,20 +10,30 @@ import { FileUploadService } from 'src/app/_services/file-upload.service';
 })
 export class FileUploadComponent implements OnInit {
   selectedFiles?: FileList;
+  selectedFileNames: string[] = [];
   progressInfos: any[] = [];
   message: string[] = [];
-  fileInfos?: Observable<any>;
+  previews: string[] = [];
+  imageInfos?: Observable<any>;
   constructor(private uploadService: FileUploadService) { }
-
-  ngOnInit(): void {
-    this.fileInfos = this.uploadService.getFiles();
-  }
-
-  selectFiles(event: Event): void {
+  selectFiles(event: any): void {
     this.message = [];
     this.progressInfos = [];
-    // @ts-ignore
-    this.selectedFiles = event.target.files;
+    this.selectedFileNames = [];
+    this.selectedFiles = event.target.files[0];
+    this.previews = [];
+    if (this.selectedFiles && this.selectedFiles[0]) {
+      const numberOfFiles = this.selectedFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          console.log(e.target.result);
+          this.previews.push(e.target.result);
+        };
+        reader.readAsDataURL(this.selectedFiles[i]);
+        this.selectedFileNames.push(this.selectedFiles[i].name);
+      }
+    }
   }
   uploadFiles(): void {
     this.message = [];
@@ -37,25 +47,25 @@ export class FileUploadComponent implements OnInit {
   upload(idx: number, file: File): void {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
     if (file) {
-      this.uploadService.upload(file).subscribe({
-        next: (event: any) => {
+      this.uploadService.upload(file).subscribe(
+        (event: any) => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
-            const msg = 'Uploaded the file successfully: ' + file.name;
+            const msg = 'Uploaded the files successfully: ' + file.name;
             this.message.push(msg);
-            this.fileInfos = this.uploadService.getFiles();
+            this.imageInfos = this.uploadService.getFiles();
           }
         },
-        error: (err: any) => {
+        (err: any) => {
           this.progressInfos[idx].value = 0;
           const msg = 'Could not upload the file: ' + file.name;
           this.message.push(msg);
-          this.fileInfos = this.uploadService.getFiles();
-        }
-      });
+        });
     }
   }
-
+  ngOnInit(): void {
+    this.imageInfos = this.uploadService.getFiles();
+  }
 
 }
