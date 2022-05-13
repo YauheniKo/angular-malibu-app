@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Article} from "../models/article.model";
 import {AppConstants} from "../app.constants";
 
-const baseUrl = AppConstants.API_URL+'articles';
+const baseUrl = AppConstants.API_URL + 'articles';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAll(): Observable<Article[]> {
     return this.http.get<Article[]>(baseUrl);
@@ -21,6 +22,9 @@ export class ArticleService {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
+  // create(data: any): Observable<any> {
+  //   return this.http.post(baseUrl, data);
+  // }
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }

@@ -38,16 +38,16 @@
     <li>{{ msg }}</li>
   </ul>
 </div>
-<mat-card class="list-card">
-  <mat-card-header>
-    <mat-card-title>List of Images</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <mat-list role="list">
-      <mat-list-item role="listitem" *ngFor="let image of imageInfos | async" class="list-item">
-        <p matLine><a href="{{ image.url }}">{{ image.name }}</a></p>
-        <img src="{{ image.url }}" alt="{{ image.name }}" height="50px"/>
-      </mat-list-item>
-    </mat-list>
-  </mat-card-content>
-</mat-card>
+<!--<mat-card class="list-card">-->
+<!--  <mat-card-header>-->
+<!--    <mat-card-title>List of Images</mat-card-title>-->
+<!--  </mat-card-header>-->
+<!--  <mat-card-content>-->
+<!--    <mat-list role="list">-->
+<!--      <mat-list-item role="listitem" *ngFor="let image of imageInfos | async" class="list-item">-->
+<!--        <p matLine><a href="{{ image.url }}">{{ image.name }}</a></p>-->
+<!--        <img src="{{ image.url }}" alt="{{ image.name }}" height="50px"/>-->
+<!--      </mat-list-item>-->
+<!--    </mat-list>-->
+<!--  </mat-card-content>-->
+<!--</mat-card>-->
