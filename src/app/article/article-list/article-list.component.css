@@ -10,6 +10,7 @@ body {
   background: #96B4F2;
 
 }
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(60, 1fr);
@@ -22,17 +23,31 @@ body {
     "c c c c d d d d";
   align-items: start;
 }
+
 .item1 {
   grid-area: a;
 }
+
 .item2 {
   grid-area: b;
 }
+
 .item3 {
   grid-area: c;
 }
+
 .item4 {
   grid-area: d;
+}
+
+.smaller {
+  width: 80%;
+}
+
+.menu ul {
+  display: flex;
+  justify-content: space-between; /* or justify-content: space-around; */
+  align-items: center;
 }
 
 
