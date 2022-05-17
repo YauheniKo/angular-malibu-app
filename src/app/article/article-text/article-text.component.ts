@@ -20,7 +20,7 @@ export class ArticleTextComponent implements OnInit {
     title: '',
     description: '',
     text: '',
-    tag: [],
+    tags: [],
     username: '',
 
   };

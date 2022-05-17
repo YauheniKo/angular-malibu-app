@@ -30,6 +30,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatLineModule} from "@angular/material/core";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatIconModule} from "@angular/material/icon";
 
 const materialModules = [
   MatCardModule,
@@ -73,7 +75,9 @@ const materialModules = [
     MatLineModule,
     MatProgressBarModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatChipsModule,
+    MatIconModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

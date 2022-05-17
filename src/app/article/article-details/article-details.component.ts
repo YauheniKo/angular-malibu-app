@@ -3,6 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Article} from 'src/app/models/article.model';
 import {ArticleService} from "../../_services/article.service";
 import {TokenStorageService} from "../../_services/token-storage.service";
+import {MatChipInputEvent} from "@angular/material/chips";
+import {Tag} from "../../models/tag.model";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-article-details',
@@ -13,6 +16,8 @@ export class ArticleDetailsComponent implements OnInit {
   private roles?: string[];
   isAdmin = false;
   isModerator = false;
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   @Input() viewMode = false;
 
@@ -20,7 +25,7 @@ export class ArticleDetailsComponent implements OnInit {
     title: '',
     description: '',
     text: '',
-    tag: [],
+    tags: [],
     username:''
   };
 
@@ -79,6 +84,29 @@ export class ArticleDetailsComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our tag
+    if (value) {
+      // @ts-ignore
+      currentArticle.tags.push({name: value});
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(tag: Tag): void {
+    // @ts-ignore
+    const index = currentArticle.tags.indexOf(tag);
+
+    if (index >= 0) {
+      // @ts-ignore
+      currentArticle.tags.splice(index, 1);
+    }
   }
 
 }

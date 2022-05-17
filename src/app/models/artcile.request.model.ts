@@ -1,3 +1,4 @@
+import {Tag} from "./tag.model";
 
 
 export class ArticleRequest {
@@ -5,6 +6,6 @@ export class ArticleRequest {
   title?: string;
   description?: string;
   text?: string;
-  tagName?: string;
+  tags?: Tag[];
   formData?: FormData;
 }

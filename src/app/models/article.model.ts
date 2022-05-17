@@ -7,7 +7,7 @@ export class Article {
   title?: string;
   description?: string;
   text?: string;
-  tag?: Tag[];
+  tags?: Tag[];
   likes?: any;
   meLiked?: boolean;
   published?: boolean;

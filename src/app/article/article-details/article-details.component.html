@@ -11,9 +11,23 @@
     </div>
     <div>
       <label><strong>Tag:</strong></label>
-      <li *ngFor="let tag of currentArticle.tag">
-        {{ tag.name }}
-      </li>
+
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Tags</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip *ngFor="let tag of currentArticle.tags" (removed)="remove(tag)">
+            {{tag.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="New fruit..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
     </div>
     <div>
       <label><strong>Text:</strong></label>
@@ -70,7 +84,7 @@
       <div class="form-group">
         <label>Tags</label>
         <ul>
-        <li *ngFor="let tag of currentArticle.tag">
+        <li *ngFor="let tag of currentArticle.tags">
           {{ tag.name }}
         </li>
         </ul>

@@ -2,8 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ArticleService} from "../../_services/article.service";
 import {ArticleRequest} from "../../models/artcile.request.model";
 import {TokenStorageService} from "../../_services/token-storage.service";
-import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {MatChipInputEvent} from "@angular/material/chips";
+import {Tag} from "../../models/tag.model";
 
 @Component({
   selector: 'app-add-article',
@@ -11,6 +13,10 @@ import {Observable} from "rxjs";
   styleUrls: ['./add-article.component.css']
 })
 export class AddArticleComponent implements OnInit {
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
+
   userId: any;
   selectedFiles?: FileList;
   selectedFileNames: string[] = [];
@@ -26,7 +32,7 @@ export class AddArticleComponent implements OnInit {
     title: '',
     description: '',
     text: '',
-    tagName: ''
+    tags: []
   };
   submitted = false;
 
@@ -38,21 +44,37 @@ export class AddArticleComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our tag
+    if (value) {
+      // @ts-ignore
+      this.articleRequest.tags.push({name: value.toLowerCase()});
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  remove(tag: Tag): void {
+    // @ts-ignore
+    const index = this.articleRequest.tags.indexOf(tag);
+
+    if (index >= 0) {
+      // @ts-ignore
+      this.articleRequest.tags.splice(index, 1);
+    }
+  }
 
   saveArticle(): void {
-    // const data = {
-    //   title: this.articleRequest.title,
-    //   description: this.articleRequest.description,
-    //   text: this.articleRequest.text,
-    //   tagName: this.articleRequest.tagName,
-    //   userId: this.userId
-    // };
+
     this.formData.append('article', new Blob([JSON.stringify({
       "title": this.articleRequest.title,
       "description": this.articleRequest.description,
       "text": this.articleRequest.text,
-      "tagName": this.articleRequest.tagName,
-      "userId": this.userId
+      "userId": this.userId,
+      "tags": this.articleRequest.tags
     })], {
       type: "application/json"
     }));
@@ -73,7 +95,7 @@ export class AddArticleComponent implements OnInit {
       title: '',
       description: '',
       text: '',
-      tagName: '',
+      tags: [],
     };
     this.selectedFiles = new FileList
   }
@@ -86,8 +108,10 @@ export class AddArticleComponent implements OnInit {
     this.previews = [];
 
     // @ts-ignore
-    for (const file of event.target.files) {
-      this.formData.append('file', file);
+    if (event.target.files) {
+      for (const file of event.target.files) {
+        this.formData.append('file', file);
+      }
     }
 
     if (this.selectedFiles && this.selectedFiles[0]) {
@@ -103,42 +127,4 @@ export class AddArticleComponent implements OnInit {
       }
     }
   }
-
-  uploadFiles(): void {
-    this.message = [];
-    if (this.selectedFiles) {
-      // for (let i = 0; i < this.selectedFiles.length; i++) {
-      //   this.upload(i, this.selectedFiles[i]);
-      // }
-      this.upload(this.selectedFiles);
-    }
-  }
-
-
-  upload(files: FileList): void {
-    // // this.progressInfos[idx] = {value: 0, fileName: file.name};
-    // if (files) {
-    //   const formData: FormData = new FormData();
-    //   // @ts-ignore
-    //   for (const file of files) {
-    //     formData.append('file', file);
-    //   }
-    //   this.uploadService.upload(files).subscribe(
-    //     (event: any) => {
-    //       if (event.type === HttpEventType.UploadProgress) {
-    //         // this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
-    //       } else if (event instanceof HttpResponse) {
-    //         const msg = 'Uploaded the file successfully: ' //+ file.name;
-    //         this.message.push(msg);
-    //         // this.imageInfos = this.uploadService.getFiles();
-    //       }
-    //     },
-    //     (err: any) => {
-    //       // this.progressInfos[idx].value = 0;
-    //       const msg = 'Could not upload the file: ' //+ file.name;
-    //       this.message.push(msg);
-    //     });
-    // }
-  }
-
 }
