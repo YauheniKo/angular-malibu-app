@@ -1,72 +1,68 @@
-<div class="form-row">
-  <div class="col-md-8">
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search by title"
-        [(ngModel)]="title"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchTitle()"
-        >
-          Search
-        </button>
-      </div>
+<div class="col-md-8">
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by title"
+      [(ngModel)]="title"
+    />
+    <div class="input-group-append">
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        (click)="searchTitle()"
+      >
+        Search
+      </button>
     </div>
   </div>
-  <div class="col-md-6">
-    <h4>Articles List</h4>
-    <ul class="list-group">
-      <li class="list-group-item"
-          *ngFor="let article of articles; let i = index"
-          [class.active]="i == currentIndex"
-      >
-        <div>
-          <div class="m-2">
-            <span>{{ article.title }}</span>
+</div>
+<div class="col-md-6">
+  <h4>Articles List</h4>
+</div>
+<div>
+
+  <ul class="list-group">
+    <li class="list-group-item"
+        *ngFor="let article of articles; let i = index"
+        [class.active]="i == currentIndex"
+    >
+      <mat-card class="example-card">
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="getTextInfo(article, i)" type="button">
+            Info
+          </button>
+        </mat-card-actions>
+        <mat-card-header>
+          <mat-card-title>{{ article.title }}</mat-card-title>
+          <mat-card-subtitle>
             <mat-chip-list>
               <mat-chip *ngFor="let tag of article.tags">{{ tag.name }}</mat-chip>
             </mat-chip-list>
-            <div class="row" data-ng-repeat="row in imageDataUrls">
-              <div class="col-sm-3" data-ng-repeat="imageDataUrl in row">
-                <ul>
-                  <li *ngFor="let file of article.filesUrl">
-                    <img alt="img" class="img-responsive smaller" src="{{file}}"/>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="card-footer text-muted">
-            {{ article.username }}
-          </div>
-          <button class="btn btn-primary" (click)="getTextInfo(article, i)" type="button">
-            Info
-          </button>
-        </div>
-
-        <div class="wrapper">
-          <div class="item1">
-            <button class="btn" (click)="gradeLike(article.id)">
-              LIKE
+          </mat-card-subtitle>
+        </mat-card-header>
+        <img *ngIf="article.filesUrl!=null" mat-card-image src="{{article.filesUrl[0]}}"/>
+        <mat-card-content>
+          <p>
+            {{ (article.text.length > 180) ? (article.text | slice:0:180) + '...' : (article.text) }}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <div *ngIf="article.meLiked; else templateName">
+            <button mat-icon-button color="warn" (click)="gradeLike(article.id)">
+              <mat-icon>favorite</mat-icon>
+              {{ article.likes }}
             </button>
           </div>
-          <div class="item3">
-            <div *ngIf="article.meLiked; else templateName">
-              <i class="fa-solid fa-heart"></i>
+          <ng-template #templateName>
+            <button mat-icon-button (click)="gradeLike(article.id)">
+              <mat-icon>favorite</mat-icon>
               {{ article.likes }}
-            </div>
-            <ng-template #templateName>
-              <i class="fa-regular fa-heart"></i>
-              {{ article.likes }}
-            </ng-template>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+            </button>
+          </ng-template>
+        </mat-card-actions>
+      </mat-card>
+    </li>
+  </ul>
 </div>
+

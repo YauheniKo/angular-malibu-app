@@ -1,24 +1,32 @@
 <div *ngIf="currentArticle.id">
-
    <span class="text-danger"
          *ngIf="(currentUserId == currentArticle.userId)||isAdmin||isModerator">
+         <mat-card-actions>
   <button class="btn btn-primary" (click)="editArticle(currentArticle.id)" type="button">
     Edit
-
   </button>
+    </mat-card-actions>
+
      </span>
-  <h4>{{ currentArticle.title }}</h4>
-  <div>
-    {{ currentArticle.text}}
-  </div>
-  <div class="row" data-ng-repeat="row in imageDataUrls">
-    <div class="col-sm-3" data-ng-repeat="imageDataUrl in row">
-      <ul>
-        <li *ngFor="let file of currentArticle.filesUrl">
-          <img alt="img" class="img-responsive smaller" src="{{file}}"/>
-        </li>
-      </ul>
-    </div>
-  </div>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div class="card-footer text-muted">
+        <h1>
+      {{ currentArticle.title }}
+      </h1>
+      </div>
+    </mat-card-header>
+    <ul>
+      <li *ngFor="let file of currentArticle.filesUrl">
+        <img mat-card-image src="{{file}}"/>
+      </li>
+    </ul>
+    <mat-card-content>
+      <p>
+        {{ currentArticle.text}}
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>
 
