@@ -1,13 +1,13 @@
 <div *ngIf="viewMode; else editable">
-  <div *ngIf="currentArticle.id">
+  <div *ngIf="articleId">
     <h4>Article</h4>
     <div>
       <label><strong>Title:</strong></label>
-      {{ currentArticle.title }}
+      {{ currentArticleRequest.title }}
     </div>
     <div>
       <label><strong>Description:</strong></label>
-      {{ currentArticle.description }}
+      {{ currentArticleRequest.description }}
     </div>
     <div>
       <label><strong>Tag:</strong></label>
@@ -15,7 +15,7 @@
       <mat-form-field class="example-chip-list" appearance="fill">
         <mat-label>Tags</mat-label>
         <mat-chip-list #chipList aria-label="Fruit selection">
-          <mat-chip *ngFor="let tag of currentArticle.tags" (removed)="remove(tag)">
+          <mat-chip *ngFor="let tag of currentArticleRequest.tags" (removed)="remove(tag)">
             {{tag.name}}
             <button matChipRemove>
               <mat-icon>cancel</mat-icon>
@@ -31,34 +31,34 @@
     </div>
     <div>
       <label><strong>Text:</strong></label>
-      {{ currentArticle.text}}
+      {{ currentArticleRequest.text}}
     </div>
 
     <div>
       <label><strong>User name:</strong></label>
-      {{ currentArticle.username }}
+      {{ currentArticleRequest.username }}
     </div>
     <div>
       <label><strong>Published:</strong></label>
-      {{ currentArticle.published}}
+      {{ currentArticleRequest.published}}
     </div>
 
     <a
       class="badge badge-warning"
-      routerLink="/articles/{{ currentArticle.id }}"
+      routerLink="/articles/{{ articleId}}"
     >
       Edit
     </a>
   </div>
 
-  <div *ngIf="!currentArticle">
+  <div *ngIf="!currentArticleRequest">
     <br/>
     <p>Please click on a Article...</p>
   </div>
 </div>
 
 <ng-template #editable>
-  <div *ngIf="currentArticle.id" class="edit-form">
+  <div *ngIf="articleId" class="edit-form">
     <h4>Article editor</h4>
     <form>
       <div class="form-group">
@@ -67,7 +67,7 @@
           type="text"
           class="form-control"
           id="title"
-          [(ngModel)]="currentArticle.title"
+          [(ngModel)]="currentArticleRequest.title"
           name="title"
         />
       </div>
@@ -77,32 +77,40 @@
           type="text"
           class="form-control"
           id="description"
-          [(ngModel)]="currentArticle.description"
+          [(ngModel)]="currentArticleRequest.description"
           name="description"
         />
       </div>
-      <div class="form-group">
-        <label>Tags</label>
-        <ul>
-        <li *ngFor="let tag of currentArticle.tags">
-          {{ tag.name }}
-        </li>
-        </ul>
-      </div>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Tags</mat-label>
+        <mat-chip-list #chipList >
+          <mat-chip *ngFor="let tag of currentArticleRequest.tags" (removed)="remove(tag)">
+           {{tag.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="New fruit..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
       <div class="form-group">
         <label for="text">Text</label>
         <input
           type="text"
           class="form-control"
           id="text"
-          [(ngModel)]="currentArticle.text"
+          [(ngModel)]="currentArticleRequest.text"
           name="text"
         />
       </div>
 
       <div class="form-group"  *ngIf="(isAdmin||isModerator)">
         <label>
-          <input type="checkbox" name="published"  [(ngModel)]="currentArticle.published">
+          <input type="checkbox" name="published"  [(ngModel)]="currentArticleRequest.published">
           Published
         </label>
       </div>
@@ -121,7 +129,7 @@
     <p>{{ message }}</p>
   </div>
 
-  <div *ngIf="!currentArticle.id">
+  <div *ngIf="!articleId">
     <br/>
     <p>Cannot access this Article...</p>
   </div>

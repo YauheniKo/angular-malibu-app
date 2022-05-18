@@ -32,6 +32,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatLineModule} from "@angular/material/core";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatIconModule} from "@angular/material/icon";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 const materialModules = [
   MatCardModule,
@@ -63,22 +64,23 @@ const materialModules = [
     ArticleTextComponent,
     FileUploadComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    NoopAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatInputModule,
-    MatLineModule,
-    MatProgressBarModule,
-    MatCardModule,
-    MatListModule,
-    MatChipsModule,
-    MatIconModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        NoopAnimationsModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatInputModule,
+        MatLineModule,
+        MatProgressBarModule,
+        MatCardModule,
+        MatListModule,
+        MatChipsModule,
+        MatIconModule,
+        DragDropModule
+    ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })

@@ -8,4 +8,6 @@ export class ArticleRequest {
   text?: string;
   tags?: Tag[];
   formData?: FormData;
+  published?: boolean;
+  username?: string;
 }

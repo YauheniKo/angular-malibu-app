@@ -28,11 +28,9 @@
         <div>
           <div class="m-2">
             <span>{{ article.title }}</span>
-            <i>
-              <ul>
-                <li *ngFor="let tag of article.tags">{{ tag.name }}</li>
-              </ul>
-            </i>
+            <mat-chip-list>
+              <mat-chip *ngFor="let tag of article.tags">{{ tag.name }}</mat-chip>
+            </mat-chip-list>
             <div class="row" data-ng-repeat="row in imageDataUrls">
               <div class="col-sm-3" data-ng-repeat="imageDataUrl in row">
                 <ul>

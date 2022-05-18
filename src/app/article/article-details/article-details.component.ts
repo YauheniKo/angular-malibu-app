@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Article} from 'src/app/models/article.model';
 import {ArticleService} from "../../_services/article.service";
 import {TokenStorageService} from "../../_services/token-storage.service";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {Tag} from "../../models/tag.model";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {ArticleRequest} from "../../models/artcile.request.model";
 
 @Component({
   selector: 'app-article-details',
@@ -18,15 +18,16 @@ export class ArticleDetailsComponent implements OnInit {
   isModerator = false;
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  articleId?: any;
 
   @Input() viewMode = false;
 
-  @Input() currentArticle: Article = {
+  currentArticleRequest: ArticleRequest = {
+    userId: '',
     title: '',
     description: '',
     text: '',
-    tags: [],
-    username:''
+    tags: []
   };
 
   message = '';
@@ -52,10 +53,11 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   getArticle(id: string): void {
+    this.articleId = id;
     this.articleService.get(id)
       .subscribe({
         next: (data) => {
-          this.currentArticle = data;
+          this.currentArticleRequest = data;
           console.log(data);
         },
         error: (e) => console.error(e)
@@ -65,7 +67,7 @@ export class ArticleDetailsComponent implements OnInit {
   updateArticle(): void {
     this.message = '';
 
-    this.articleService.update(this.currentArticle.id, this.currentArticle)
+    this.articleService.update(this.articleId, this.currentArticleRequest)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -76,7 +78,7 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   deleteArticle(): void {
-    this.articleService.delete(this.currentArticle.id)
+    this.articleService.delete(this.articleId)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -88,24 +90,22 @@ export class ArticleDetailsComponent implements OnInit {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
     // Add our tag
     if (value) {
       // @ts-ignore
-      currentArticle.tags.push({name: value});
+      this.currentArticleRequest.tags.push({name: value});
     }
-
     // Clear the input value
     event.chipInput!.clear();
   }
 
   remove(tag: Tag): void {
     // @ts-ignore
-    const index = currentArticle.tags.indexOf(tag);
+    const index = this.currentArticleRequest.tags.indexOf(tag);
 
     if (index >= 0) {
       // @ts-ignore
-      currentArticle.tags.splice(index, 1);
+      this.currentArticleRequest.tags.splice(index, 1);
     }
   }
 
